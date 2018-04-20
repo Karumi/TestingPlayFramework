@@ -35,14 +35,14 @@ import slick.codegen.SourceCodeGenerator
 import slick.{model => m}
 
 slickCodegenSettings
-sourceGenerators in Compile +=  { slickCodegen }
 slickCodegenDatabaseUrl := databaseUrl
 slickCodegenDatabaseUser := databaseUser
 slickCodegenDatabasePassword := databasePassword
-slickCodegenDriver := slick.jdbc.MySQLProfile
+slickCodegenDriver := slick.driver.MySQLDriver
 slickCodegenJdbcDriver := "com.mysql.cj.jdbc.Driver"
 slickCodegenOutputPackage := "slick"
-slickCodegenOutputDir := (sourceManaged in Compile).value
+slickCodegenExcludedTables := Seq("schema_version")
+slickCodegenOutputDir := file("./app/")
 slickCodegenCodeGenerator := { (model: m.Model) =>
   new SourceCodeGenerator(model) {
     override def tableName =
