@@ -9,11 +9,11 @@ scalaVersion := "2.12.4"
 libraryDependencies ++= {
   Seq(
     guice,
-    jdbc,
-    ws,
     "mysql" % "mysql-connector-java" % "8.0.7-dmr",
-    "org.flywaydb" %% "flyway-play" % "4.0.0",
+    "com.h2database" % "h2" % "1.4.192",
+    "org.flywaydb" %% "flyway-play" % "5.0.0",
     "com.typesafe.play" %% "play-slick" % "3.0.3",
+    "com.typesafe.play" %% "play-slick-evolutions" % "3.0.3",
     "net.codingwell" %% "scala-guice" % "4.1.0",
     "com.typesafe.slick" %% "slick-codegen" % "3.2.1",
     "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
@@ -29,7 +29,7 @@ lazy val databasePassword = "tpf"
 flywayUrl := databaseUrl
 flywayUser := databaseUser
 flywayPassword := databasePassword
-flywayLocations := Seq("filesystem:conf/db/migration/default/")
+flywayLocations := Seq("filesystem:conf/evolutions/default/")
 
 addCommandAlias("format", ";scalafmt;test:scalafmt")
 
