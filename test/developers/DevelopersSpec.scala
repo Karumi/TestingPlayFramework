@@ -8,10 +8,11 @@ import org.scalatest.prop.PropertyChecks
 import utils.extensions._
 import org.scalacheck.Gen
 
-class DevelopersSpec extends InMemoryDatabaseFlatSpec
-  with DatabaseCleanerOnEachTest
-  with PropertyChecks
-  with Matchers {
+class DevelopersSpec
+    extends InMemoryDatabaseFlatSpec
+    with DatabaseCleanerOnEachTest
+    with PropertyChecks
+    with Matchers {
 
   private val developersDao = app.injector.instanceOf[DevelopersDAO]
 

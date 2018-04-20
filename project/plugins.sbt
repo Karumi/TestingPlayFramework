@@ -1,7 +1,7 @@
 resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 resolvers += "Flyway" at "https://flywaydb.org/repo"
-resolvers += "Flyway" at "https://davidmweber.github.io/flyway-sbt.repo"
+resolvers += "Flyway davidmweber" at "https://davidmweber.github.io/flyway-sbt.repo"
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.13")
 addSbtPlugin("io.github.davidmweber" % "flyway-sbt" % "5.0.0")
