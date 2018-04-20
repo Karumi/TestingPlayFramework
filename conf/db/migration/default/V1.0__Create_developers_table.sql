@@ -1,0 +1,5 @@
+CREATE TABLE developers(
+  id VARCHAR(36) NOT NULL PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(255)
+);

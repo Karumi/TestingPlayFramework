@@ -22,9 +22,9 @@ before_cache:
   - find $HOME/.sbt -name "*.lock" -delete
 
 before_install:
-  - mysql -e "create database IF NOT EXISTS testingplayframework;" -uroot
-  - mysql -u root -e "CREATE USER 'testingplayframework'@'localhost' IDENTIFIED BY 'testingplayframework';"
-  - mysql -u root -e "GRANT ALL ON testingplayframework.* TO 'testingplayframework'@'localhost';"
+  - mysql -e "create database IF NOT EXISTS tpf;" -uroot
+  - mysql -u root -e "CREATE USER 'tpf'@'localhost' IDENTIFIED BY 'tpf';"
+  - mysql -u root -e "GRANT ALL ON tpf.* TO 'tpf'@'localhost';"
 
 script:
   - sbt scalafmt::test

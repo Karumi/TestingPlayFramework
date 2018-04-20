@@ -1,0 +1,17 @@
+version: '3'
+services:
+  database:
+    image: "mysql:5.6"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: tpf
+      MYSQL_DATABASE: tpf
+      MYSQL_USER: tpf
+      MYSQL_PASSWORD: tpf
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+volumes:
+    db_data:
