@@ -42,6 +42,7 @@ slickCodegenDatabasePassword := databasePassword
 slickCodegenDriver := slick.jdbc.MySQLProfile
 slickCodegenJdbcDriver := "com.mysql.cj.jdbc.Driver"
 slickCodegenOutputPackage := "slick"
+slickCodegenOutputDir := (sourceManaged in Compile).value
 slickCodegenCodeGenerator := { (model: m.Model) =>
   new SourceCodeGenerator(model) {
     override def tableName =
