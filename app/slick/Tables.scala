@@ -23,14 +23,11 @@ trait Tables {
     *  @param id Database column id SqlType(VARCHAR), PrimaryKey, Length(36,true)
     *  @param username Database column username SqlType(VARCHAR), Length(255,true)
     *  @param email Database column email SqlType(VARCHAR), Length(255,true), Default(None) */
-  case class DevelopersRow(id: String,
-                           username: String,
-                           email: Option[String] = None)
+  case class DevelopersRow(id: String, username: String, email: Option[String] = None)
 
   /** GetResult implicit for fetching DevelopersRow objects using plain SQL queries */
-  implicit def GetResultDevelopersRow(
-      implicit e0: GR[String],
-      e1: GR[Option[String]]): GR[DevelopersRow] = GR { prs =>
+  implicit def GetResultDevelopersRow(implicit e0: GR[String],
+                                      e1: GR[Option[String]]): GR[DevelopersRow] = GR { prs =>
     import prs._
     val r = (<<[String], <<[String], <<?[String])
     import r._
@@ -39,20 +36,15 @@ trait Tables {
 
   /** Table description of table developers. Objects of this class serve as prototypes for rows in queries. */
   class DevelopersTable(_tableTag: Tag)
-      extends profile.api.Table[DevelopersRow](_tableTag,
-                                               Some("tpf"),
-                                               "developers") {
+      extends profile.api.Table[DevelopersRow](_tableTag, Some("tpf"), "developers") {
     def * =
       (id, username, email) <> (DevelopersRow.tupled, DevelopersRow.unapply)
 
     /** Maps whole row to an option. Useful for outer joins. */
     def ? =
-      (Rep.Some(id), Rep.Some(username), email).shaped.<>(
-        { r =>
-          import r._; _1.map(_ => DevelopersRow.tupled((_1.get, _2.get, _3)))
-        },
-        (_: Any) =>
-          throw new Exception("Inserting into ? projection not supported."))
+      (Rep.Some(id), Rep.Some(username), email).shaped.<>({ r =>
+        import r._; _1.map(_ => DevelopersRow.tupled((_1.get, _2.get, _3)))
+      }, (_: Any) => throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column id SqlType(VARCHAR), PrimaryKey, Length(36,true) */
     val id: Rep[String] =
@@ -63,10 +55,8 @@ trait Tables {
       column[String]("username", O.Length(255, varying = true))
 
     /** Database column email SqlType(VARCHAR), Length(255,true), Default(None) */
-    val email: Rep[Option[String]] = column[Option[String]](
-      "email",
-      O.Length(255, varying = true),
-      O.Default(None))
+    val email: Rep[Option[String]] =
+      column[Option[String]]("email", O.Length(255, varying = true), O.Default(None))
   }
 
   /** Collection-like TableQuery object for table DevelopersTable */
@@ -95,36 +85,35 @@ trait Tables {
                                     success: Boolean)
 
   /** GetResult implicit for fetching FlywaySchemaHistoryRow objects using plain SQL queries */
-  implicit def GetResultFlywaySchemaHistoryRow(
-      implicit e0: GR[Int],
-      e1: GR[Option[String]],
-      e2: GR[String],
-      e3: GR[Option[Int]],
-      e4: GR[java.sql.Timestamp],
-      e5: GR[Boolean]): GR[FlywaySchemaHistoryRow] = GR { prs =>
-    import prs._
-    val r = (<<[Int],
-             <<?[String],
-             <<[String],
-             <<[String],
-             <<[String],
-             <<?[Int],
-             <<[String],
-             <<[java.sql.Timestamp],
-             <<[Int],
-             <<[Boolean])
-    import r._
-    FlywaySchemaHistoryRow
-      .tupled((_1, _2, _3, _4, _5, _6, _7, _8, _9, _10)) // putting AutoInc last
+  implicit def GetResultFlywaySchemaHistoryRow(implicit e0: GR[Int],
+                                               e1: GR[Option[String]],
+                                               e2: GR[String],
+                                               e3: GR[Option[Int]],
+                                               e4: GR[java.sql.Timestamp],
+                                               e5: GR[Boolean]): GR[FlywaySchemaHistoryRow] = GR {
+    prs =>
+      import prs._
+      val r = (<<[Int],
+               <<?[String],
+               <<[String],
+               <<[String],
+               <<[String],
+               <<?[Int],
+               <<[String],
+               <<[java.sql.Timestamp],
+               <<[Int],
+               <<[Boolean])
+      import r._
+      FlywaySchemaHistoryRow
+        .tupled((_1, _2, _3, _4, _5, _6, _7, _8, _9, _10)) // putting AutoInc last
   }
 
   /** Table description of table flyway_schema_history. Objects of this class serve as prototypes for rows in queries.
     *  NOTE: The following names collided with Scala keywords and were escaped: type */
   class FlywaySchemaHistoryTable(_tableTag: Tag)
-      extends profile.api.Table[FlywaySchemaHistoryRow](
-        _tableTag,
-        Some("tpf"),
-        "flyway_schema_history") {
+      extends profile.api.Table[FlywaySchemaHistoryRow](_tableTag,
+                                                        Some("tpf"),
+                                                        "flyway_schema_history") {
     def * =
       (installedRank,
        version,
@@ -154,29 +143,17 @@ trait Tables {
           _1.map(
             _ =>
               FlywaySchemaHistoryRow.tupled(
-                (_1.get,
-                 _2,
-                 _3.get,
-                 _4.get,
-                 _5.get,
-                 _6,
-                 _7.get,
-                 _8.get,
-                 _9.get,
-                 _10.get)))
+                (_1.get, _2, _3.get, _4.get, _5.get, _6, _7.get, _8.get, _9.get, _10.get)))
         },
-        (_: Any) =>
-          throw new Exception("Inserting into ? projection not supported.")
+        (_: Any) => throw new Exception("Inserting into ? projection not supported.")
       )
 
     /** Database column installed_rank SqlType(INT), PrimaryKey */
     val installedRank: Rep[Int] = column[Int]("installed_rank", O.PrimaryKey)
 
     /** Database column version SqlType(VARCHAR), Length(50,true), Default(None) */
-    val version: Rep[Option[String]] = column[Option[String]](
-      "version",
-      O.Length(50, varying = true),
-      O.Default(None))
+    val version: Rep[Option[String]] =
+      column[Option[String]]("version", O.Length(50, varying = true), O.Default(None))
 
     /** Database column description SqlType(VARCHAR), Length(200,true) */
     val description: Rep[String] =
@@ -214,6 +191,5 @@ trait Tables {
   }
 
   /** Collection-like TableQuery object for table FlywaySchemaHistoryTable */
-  lazy val FlywaySchemaHistoryTable = new TableQuery(
-    tag => new FlywaySchemaHistoryTable(tag))
+  lazy val FlywaySchemaHistoryTable = new TableQuery(tag => new FlywaySchemaHistoryTable(tag))
 }
