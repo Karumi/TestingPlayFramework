@@ -31,20 +31,17 @@ flywayUser := databaseUser
 flywayPassword := databasePassword
 flywayLocations := Seq("filesystem:conf/evolutions/default/")
 
-addCommandAlias("format", ";scalafmt;test:scalafmt")
-
 import slick.codegen.SourceCodeGenerator
-import slick.{ model => m }
+import slick.{model => m}
 
 slickCodegenSettings
+sourceGenerators in Compile +=  { slickCodegen }
 slickCodegenDatabaseUrl := databaseUrl
 slickCodegenDatabaseUser := databaseUser
 slickCodegenDatabasePassword := databasePassword
-slickCodegenDriver := slick.driver.MySQLDriver
+slickCodegenDriver := slick.jdbc.MySQLProfile
 slickCodegenJdbcDriver := "com.mysql.cj.jdbc.Driver"
 slickCodegenOutputPackage := "slick"
-slickCodegenExcludedTables := Seq("schema_version")
-slickCodegenOutputDir := file("./app/")
 slickCodegenCodeGenerator := { (model: m.Model) =>
   new SourceCodeGenerator(model) {
     override def tableName =
@@ -129,11 +126,25 @@ implicit def $name(implicit $dependencies): GR[${TableClass.elementType}] = GR{
           val rhs = s"$struct <> ($factory, $extractor)"
           s"def * = $rhs"
         }
+        override def code = {
+          val prns = parents.map(" with " + _).mkString("")
+          // We force the schema to be none just to support H2 queries execution
+          // the original implementation was val args = model.name.schema.map(n => s"""Some(n)""") ++ Seq("\""+model.name.table+"\"")
+          val args = model.name.schema.map(n => s"""None""") ++ Seq("\""+model.name.table+"\"")
+          s"""
+class $name(_tableTag: Tag) extends profile.api.Table[$elementType](_tableTag, ${args.mkString(", ")})$prns {
+  ${indent(body.map(_.mkString("\n")).mkString("\n\n"))}
+}
+        """.trim()
+        }
       }
 
       def tails(n: Int) = {
         List.fill(n)(".tail").mkString("")
       }
+
     }
   }
 }
+
+addCommandAlias("format", ";scalafmt;test:scalafmt")
