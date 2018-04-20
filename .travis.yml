@@ -17,8 +17,8 @@ before_install:
 script:
   - sbt scalafmt::test
   - sbt test:scalafmt::test
-  - sbt test
-  - sbt dist
   - sbt flywayClean
   - sbt flywayMigrate
   - sbt flywayInfo
+  - sbt test
+  - sbt dist
