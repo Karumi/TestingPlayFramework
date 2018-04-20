@@ -21,7 +21,7 @@ abstract class InMemoryDatabaseFlatSpec extends FlatSpec with GuiceOneAppPerSuit
   override def fakeApplication(): Application = {
     val builder = overrideDependencies(
       new GuiceApplicationBuilder()
-         .configure(inMemoryDatabaseConfiguration)
+        .configure(inMemoryDatabaseConfiguration)
     )
     builder.build()
   }
