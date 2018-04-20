@@ -12,8 +12,8 @@ import developers.storage.codec._
 import scala.concurrent.{ExecutionContext, Future}
 
 class DevelopersDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(
-  implicit ec: ExecutionContext)
-  extends HasDatabaseConfigProvider[JdbcProfile] {
+    implicit ec: ExecutionContext)
+    extends HasDatabaseConfigProvider[JdbcProfile] {
 
   import dbConfig.profile.api._
 

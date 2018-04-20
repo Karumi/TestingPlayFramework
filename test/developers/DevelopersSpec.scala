@@ -1,5 +1,3 @@
 package developers
 
-class DevelopersSpec {
-
-}
+class DevelopersSpec {}
