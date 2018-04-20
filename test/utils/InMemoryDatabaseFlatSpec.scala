@@ -8,7 +8,9 @@ import play.api.inject.guice.GuiceApplicationBuilder
 object InMemoryDatabaseFlatSpec {
   private val inMemoryDatabaseConfiguration: Map[String, Any] = Map(
     "slick.dbs.default.profile"     -> "slick.jdbc.H2Profile$",
-    "slick.dbs.default.db.url"      -> "jdbc:h2:mem:test;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1",
+    "slick.dbs.default.driver"      -> "slick.driver.H2Driver$",
+    "slick.dbs.default.db.driver"   -> "org.h2.Driver",
+    "slick.dbs.default.db.url"      -> "jdbc:h2:mem:play;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=FALSE",
     "slick.dbs.default.db.user"     -> "",
     "slick.dbs.default.db.password" -> ""
   )
