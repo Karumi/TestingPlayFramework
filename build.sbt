@@ -16,6 +16,7 @@ libraryDependencies ++= {
     "com.typesafe.play" %% "play-slick" % "3.0.3",
     "net.codingwell" %% "scala-guice" % "4.1.0",
     "com.typesafe.slick" %% "slick-codegen" % "3.2.1",
+    "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
     "org.scalacheck" %% "scalacheck" % "1.13.5" % Test,
     "com.h2database" % "h2" % "1.4.196" % Test
   )
