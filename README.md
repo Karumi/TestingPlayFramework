@@ -2,7 +2,6 @@
 
 Demo repository used to illustrate the examples described in [this blog post](testing-with-h2-in-play-framework).
 
-
 License
 -------
 
@@ -19,3 +18,5 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+[karumilogo]: https://cloud.githubusercontent.com/assets/858090/11626547/e5a1dc66-9ce3-11e5-908d-537e07e82090.png
