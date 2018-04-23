@@ -1,6 +1,6 @@
 # ![Karumi logo][karumilogo] Testing Play Framework [![Build Status](https://travis-ci.org/Karumi/TestingPlayFramework.svg?branch=master)](https://travis-ci.org/Karumi/TestingPlayFramework)
 
-Demo repository used to illustrate the examples described in [this blog post](testing-with-h2-in-play-framework).
+Demo repository used to illustrate the examples described in [this blog post](http://blog.karumi.com/testing-with-h2-in-play-framework/).
 
 License
 -------
