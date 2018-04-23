@@ -1,0 +1,35 @@
+sudo: required
+dist: trusty
+language: scala
+scala:
+  - 2.12.4
+jdk:
+  - oraclejdk8
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
+    - $HOME/.yarn-cache
+
+services:
+  - mysql
+
+before_cache:
+  # Tricks to avoid unnecessary cache updates
+  - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
+  - find $HOME/.sbt -name "*.lock" -delete
+
+before_install:
+  - mysql -e "create database IF NOT EXISTS tpf;" -uroot
+  - mysql -u root -e "CREATE USER 'tpf'@'localhost' IDENTIFIED BY 'tpf';"
+  - mysql -u root -e "GRANT ALL ON tpf.* TO 'tpf'@'localhost';"
+
+script:
+  - sbt scalafmt::test
+  - sbt test:scalafmt::test
+  - sbt flywayClean
+  - sbt flywayMigrate
+  - sbt flywayInfo
+  - sbt test
+  - sbt dist
